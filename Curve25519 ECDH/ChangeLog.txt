@@ -1,0 +1,15 @@
+Added domain parameter validation subroutine
+Strengthened my import curves from XML to include domain parameter validation
+Changed ECIES encryption routine to stop curve generation on the fly, users must now supply curves
+Created a function in ECPoint to look for erroneous values, i.e in places I set an ECPoint to -99,-99,-99
+
+Changed from using HMAC to CBC_MAC
+Added better error management, no more crashes, hopefully
+Added a debug log function, hopefully going to add a debug log file
+Changing all throw exception to my new error management system
+To make sure that subs exit with pass or failed, added a error system to most subs, if they return a structure I added didError as boolean to make things easier
+Anything that returns just a normal type of value, the return will be set null if there is an error
+Changed how we use the events_handler class, instead of inheritance, because of problems with retaning values from different classes we no import the class and set everything that is accessible to friend and shared
+Changed Encrypt_Sign method in AES.vb and corrected it so that it only takes the last block of the message when doing a CBC_MAC
+Added message length at start when doing MAC
+Added a method to removed the excess zeros from the end of the plaintext message after decryption.

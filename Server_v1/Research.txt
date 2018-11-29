@@ -1,0 +1,12 @@
+get an ip :
+https://stackoverflow.com/questions/7212892/how-to-get-local-ip-address-using-vb
+https://stackoverflow.com/questions/6157535/vb-net-grabbing-and-tieing-ip-addresses-to-interfaces
+
+Server tcp:
+https://edux.pjwstk.edu.pl/mat/268/lec/lect8/lecture8.html
+
+Multithreaded sockets:
+http://vb.net-informations.com/communications/vb.net_multithreaded_server_socket_programming.htm
+
+Icons
+https://bytes.com/topic/visual-basic-net/answers/388873-getting-icon-embedded-resource

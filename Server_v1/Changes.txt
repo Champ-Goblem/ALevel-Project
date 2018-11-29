@@ -1,0 +1,16 @@
+Changed main form code so we list interfaces and correspoding addresses
+Added validation to check if the interface is currently in use
+Had to add a function to convert a string IP address to system.net.ipaddress
+Changed the way invoking socketMT works, must now create new then run set_tcplistener_start as no way to do new as a function
+Changed the way null return from convert_ip_decimal was handled
+Added status to form text that changes, added running and stopped icons
+Inherited the tcplistener class and modified it to poll for a user then raise an event when a user is trying to connect
+Had to do some stuff with invoking to be able to write to the RTB_Log in the UI due to the fact that MULTITHREADING DOESNT WORK WITH DEFAULT INSTANCES
+This required a new shared class as a wrapper for accessing Main thread UI stuff, requires and instance of the thread as a pre-requisite
+Created a multithreaded client send and recieve class which multithreads polling for messages and sending data, including locks for netstream
+created a class which makes a lookup table for clients, key being the IP of the client and stores the username, public key and reference to the mtClientReciever object that is dealing with that clients connection
+Needed to implement a heartbeat for the client to know when the client disconects
+Next designed some of the data designs that we would use such as heatbeat values, client disconnect values
+Added stuff to close the connections and so
+Added correct server shutdown so clearing out the lookup table and disposing of streams and client references and stuff
+

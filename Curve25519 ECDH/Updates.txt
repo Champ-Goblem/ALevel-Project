@@ -1,0 +1,2 @@
+Weirestrass class
+Sanitise curve parameters before setting them

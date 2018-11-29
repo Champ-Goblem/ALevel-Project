@@ -1,0 +1,1 @@
+EXCEPTION: SendToolStripMenuItem_Click     The process cannot access the file 'D:\ALevel\Year 12\Computing\NEA\Programming Theories\Simple Client\Simple Client\bin\x86\Debug\Log.txt' because it is being used by another process.

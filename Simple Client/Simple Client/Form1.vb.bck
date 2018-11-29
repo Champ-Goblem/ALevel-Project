@@ -1,0 +1,97 @@
+﻿Imports System.Net.Sockets
+Imports Error_Handler.Events_Handler
+Imports System.Reflection.MethodInfo
+Public Class Form1
+    Private srFunction As SendRecieve
+    Private clientSocket As TcpClient = New TcpClient
+    Private Delegate Sub Delegate_removeUserFromListView(ByVal username As String)
+    Private Delegate Sub Delegate_addUserToListView(ByVal username As String)
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim IPAddr As String = TextBox1.Text
+        Try
+            clientSocket.Connect(IPAddr, 3434)
+        Catch ex As ObjectDisposedException
+            clientSocket = New TcpClient
+            clientSocket.Connect(IPAddr, 3434)
+        Catch ex As Exception
+            RTB_Log.AppendText(ex.Message & vbNewLine)
+            writeDebugLog(ex.Message, GetCurrentMethod.Name, True)
+            Return
+        End Try
+        RTB_Log.AppendText(clientSocket.Connected & vbNewLine)
+        If TXT_Username.Text = Nothing Then
+            Return
+        End If
+        srFunction = New SendRecieve(clientSocket, TXT_Username.Text, BitConverter.GetBytes(600000000000000), BitConverter.GetBytes(10000000000))
+        'Dim stream As NetworkStream = clientSocket.GetStream()
+        'Dim outstream As Byte()
+        'outstream = System.Text.Encoding.ASCII.GetBytes("Client 1")
+        'stream.Write(outstream, 0, outstream.Length)
+        'stream.Flush()
+        'Dim recvBytes(clientSocket.ReceiveBufferSize) As Byte
+        'Dim bytesReadCount As Integer
+        'bytesReadCount = stream.Read(recvBytes, 0, CInt(clientSocket.ReceiveBufferSize))
+        'RTB_Log.AppendText(System.Text.Encoding.ASCII.GetString(recvBytes, 0, bytesReadCount) & vbNewLine)
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        If Not srFunction Is Nothing Then
+            srFunction.closeConnection()
+            srFunction = Nothing
+        End If
+    End Sub
+    Private Sub form1_Closing(sender As Object, e As EventArgs) Handles MyBase.FormClosing
+        If Not srFunction Is Nothing Then
+            srFunction.closeConnection()
+        End If
+    End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Try
+            srFunction.sendMessage(UserList.SelectedItems(0).Text, TXT_Message.Text)
+        Catch ex As ObjectDisposedException
+            srFunction = Nothing
+            clientSocket = New TcpClient
+        End Try
+    End Sub
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        OpenFileDialog1.InitialDirectory = System.Environment.SpecialFolder.MyDocuments
+        OpenFileDialog1.ShowDialog()
+        Dim filepath As String = OpenFileDialog1.FileName
+        Try
+            srFunction.sendFile(UserList.SelectedItems(0).Text, filepath)
+        Catch ex As ObjectDisposedException
+            srFunction = Nothing
+            clientSocket = New TcpClient
+            Return
+        Catch ex As Exception
+            writeDebugLog(ex.Message, GetCurrentMethod.Name, True)
+            Return
+        End Try
+    End Sub
+    Private Sub form1_Loading(sender As Object, e As EventArgs) Handles Me.Load
+
+    End Sub
+    Public Sub addUserToListView(ByVal username As String)
+        If UserList.InvokeRequired Then
+            Dim Dgate As New Delegate_addUserToListView(AddressOf addUserToListView)
+            UserList.BeginInvoke(Dgate, New Object() {username})
+        Else
+            UserList.Items.Add(username)
+        End If
+    End Sub
+    Public Sub removeUserFromListView(ByVal username As String)
+        If UserList.InvokeRequired Then
+            Dim Dgate As New Delegate_removeUserFromListView(AddressOf removeUserFromListView)
+            UserList.BeginInvoke(Dgate, New Object() {username})
+        Else
+            For i = 0 To UserList.Items.Count - 1
+                If UserList.Items(i).Text = username Then
+                    UserList.Items(i).Remove()
+                    Return
+                End If
+            Next
+        End If
+    End Sub
+End Class

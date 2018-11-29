@@ -1,0 +1,285 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+Curve25519 ECDH
+</name>
+</assembly>
+<members>
+<member name="T:Curve25519_ECDH.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:Curve25519_ECDH.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:Curve25519_ECDH.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="T:Curve25519_ECDH.Crypto.AES.CBC_Values">
+ <summary>
+ A structure that contains the two values returned from CBC encryption
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES.Convert_String_ToByteArray(System.String)">
+ <summary>
+ Function that converts a string to a byte array
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES.Convert_ByteArray_ToString(System.Byte[])">
+ <summary>
+ Converts a byte array to string
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES.Convert_BigInteger_ToByteArray(System.Numerics.BigInteger)">
+ <summary>
+ This function converts big integers to byte arrays rather than using .tobytearray due to the fact that .tobytearray could possibly use the wrong endianess
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES.Convert_IntegerByteArray_ToBigInteger(System.Byte[])">
+ <summary>
+ Converts a byte array converted using the method above back to BigInteger
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES.ConvertFromState(System.Byte[0:,0:])">
+ <summary>
+ Converts the 2 dimensional state array back into a 1 dimensional array
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES.convertSingleState(System.Byte[])">
+ <summary>
+ Converts a byte array of 16 values to a 2 dimensional state rather than a free
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES.check_state_Val(System.Byte[0:,0:])">
+ <summary>
+ Debugging function
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES.convertState(System.Byte[])">
+ <summary>
+ This converts a byte array that is greater than 16 bytes to a state of 3 dimensions
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES.Populate(System.Byte[]@,System.Byte[],System.Int32,System.Int32)">
+ <summary>
+ This function is used to copy as set of specific values from startarray into the finalarray
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES.Copy_3to2(System.Byte[0:,0:,0:],System.Byte[0:,0:]@,System.Int32,System.Int32,System.Int32)">
+ <summary>
+ Copies a selected state from the 3 dimensional State array into the 2 dimensional one for use with AES algorithms
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES.Rij_KeySchedule(System.Byte[],System.Int32)">
+ <summary>
+ Function used to extend the provided key for AES into something longer
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES.Get_RCON(System.Int32)">
+ <summary>
+ This perfroms the exponentation of 2 to a user specified value
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES.Rotate(System.Byte[]@)">
+ <summary>
+ This shifts a 4 byte array left by 1 and wraps the end value round to the start like so:
+ Before: 32 AA FF 10
+ After:  AA FF 10 32
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES.SBox(System.Byte)">
+ <summary>
+ This is a lookup table of multiplicative inverses for a number inside the Rijndaels finite field
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES.gmul_inverse(System.Byte)">
+ <summary>
+ This performs the inverse of Galios Field multiplication
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES.Core(System.Byte[]@,System.Int32)">
+ <summary>
+ This is the inner loop of the key schedule
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES.gmul(System.Byte,System.Byte)">
+ <summary>
+ perfoms galios field multiplication using lookup tables
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES_Encrypt.Encrypt_Sign_AES_256_CBC(System.Byte[],System.Byte[],System.Boolean)">
+ <summary>
+ Performs AES Cipher Block Chaining, or by specifiying CBC_MAC as True we can perform CBC_MAC for calculating a Message Authentication Code
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES_Encrypt.Encrypt_AES(System.Byte[0:,0:],System.Byte[])">
+ <summary>
+ AES encryption algorithm
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES_Decrypt.Decrypt_AES_256_CBC(System.Byte[],System.Byte[],System.Byte[])">
+ <summary>
+ Decrypts a byte array encrypted with AES and Cipher Block Chaining
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES_Decrypt.removeZeros(System.Byte[]@)">
+ <summary>
+ Removes the excess zeros from the end of a message
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES_Decrypt.Decrypt_AES(System.Byte[0:,0:],System.Byte[])">
+ <summary>
+ AES decryption algorithm
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES_Decrypt.Inv_SBox(System.Byte)">
+ <summary>
+ Perfroms the inverse of SBox
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES_Decrypt.AddRoundKey(System.Byte[0:,0:],System.Byte[0:,0:]@)">
+ <summary>
+ XORs the key with the state
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES_Decrypt.Inv_Sub_Bytes(System.Byte[0:,0:]@)">
+ <summary>
+ Does the inverse of Sub_Bytes by using inverse SBox to look up the data
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES_Decrypt.Inv_Mix_Column(System.Byte[0:,0:]@)">
+ <summary>
+ Does the inverse of Mix_Column
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.AES_Decrypt.Inv_ShiftRows(System.Byte[0:,0:]@)">
+ <summary>
+ Does the inverse of shift rows
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.ECIES.hash_KDF(Curve25519_ECDH.ECPoint)">
+ <summary>
+ A hash function which turns the x value of the public key into two secret keys
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.ECIES.insert_Byte(System.Byte[],System.Byte,System.Int32)">
+ <summary>
+ Inserts a byte at a set location in the array
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.ECIES.isArrayZeroed(System.Byte[])">
+ <summary>
+ Check if all the values in an array are zero
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Crypto.ECIES.compareArrays(System.Byte[],System.Byte[])">
+ <summary>
+ Compares two arrays of the same length
+ </summary>
+</member>
+<member name="T:Curve25519_ECDH.Curve.Weierstrass_Curve">
+<summary>
+Deffines a cruve with the general weistrass formula y^2 = x^3 + ax + b
+ </summary>
+</member>
+<member name="T:Curve25519_ECDH.ECPoint">
+ <summary>
+ 
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.ECPoint.IsPointInfinity">
+ <summary>
+ Gets if the point is an infinity point
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.ECPoint.Zero">
+ <summary>
+ Zero out an ECPoint for security Reasons
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.ECPoint.IsNull">
+ <summary>
+ Checks that the x or y values are set to zero
+ </summary>
+ <returns></returns>
+</member>
+<member name="M:Curve25519_ECDH.ECPoint.IsPointOnCurve(Curve25519_ECDH.Curve.Domain_Parameters)">
+ <summary>
+ Check if the point lies on a specific curve, checked by the general Weistrass Equation (x^3 + ax + b - y^2) % p == 0
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.ECPoint.isErroneous">
+ <summary>
+ Returns a boolean value if the x y and p values are set to the value -99
+ </summary>
+ <returns></returns>
+</member>
+<member name="T:Curve25519_ECDH.Point_Operations.RetGCD">
+ <summary>
+ A structure that contains data returned from Extended_GCD function
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Point_Operations.Addition(Curve25519_ECDH.ECPoint,Curve25519_ECDH.ECPoint)">
+ <summary>
+ Performs addition of two points
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Point_Operations.PDouble(Curve25519_ECDH.ECPoint,Curve25519_ECDH.Curve.Domain_Parameters)">
+ <summary>
+ A way of doubling a EC Point
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Point_Operations.Scalar_Mult(Curve25519_ECDH.ECPoint,Curve25519_ECDH.Curve.Domain_Parameters,System.Numerics.BigInteger)">
+ <summary>
+ Performs point multiplication with a scalar
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Point_Operations.Extended_GCD(System.Numerics.BigInteger,System.Numerics.BigInteger)">
+ <summary>
+ Calcualtes the Greatest Common Divisor of two numbers
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Point_Operations.Inverse(System.Numerics.BigInteger,System.Numerics.BigInteger)">
+ <summary>
+ Performs the modular multiplitcative inverse of a number so we can use multiplication instead of division in our arithmetic
+ </summary>
+</member>
+<member name="T:Curve25519_ECDH.Fp_Operations.Fp.Errors">
+ <summary>
+ A list of custom errors used in the private methods
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Fp_Operations.Fp.Generate_Params(System.Numerics.BigInteger@,System.Int32)">
+ <summary>
+ So far only generates the domain p which is specifically a prime number for which a prime filed will later operate over
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Fp_Operations.Fp.SecureRandom(System.Int32)">
+ <summary>
+ Generates a random binary value of lenght Num_Bytes in a byte array
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Fp_Operations.Fp.Test_prime(System.Numerics.BigInteger,System.Int32)">
+<summary>
+ This function uses the Miller-Rabin prime tests as stated on wikipedia where p is the odd number to be tested and k is the accuracy of the test
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Fp_Operations.Fp.Gen_Random_BigInt">
+ <summary>
+ Genetares a random BigInteger value that should be positive and less than or equal to the value of prime being passed
+ </summary>
+</member>
+<member name="M:Curve25519_ECDH.Fp_Operations.Fp.Field_Addition(System.Numerics.BigInteger,System.Numerics.BigInteger,System.Numerics.BigInteger)">
+ <summary>
+ Calculates field addition
+ </summary>
+</member>
+</members>
+</doc>
